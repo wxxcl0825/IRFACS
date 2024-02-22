@@ -6,8 +6,6 @@ import struct
 
 from utils.command import *
 
-logging.basicConfig(level=logging.INFO)
-
 
 class Buffer:
     def __init__(self, sock: socket.socket):
@@ -118,7 +116,7 @@ class Server:
         message = None
         try:
             message = self.buffer.recv_until(b'\x7E').decode('utf-8')
-        except (socket.error, OSError, UnicodeDecodeError) as e:
+        except (socket.error, OSError, UnicodeDecodeError, TimeoutError) as e:
             logging.error(f"Server: Error {e} when receiving message")
         return message
 
@@ -126,8 +124,8 @@ class Server:
         logging.info(f"Server: Receiving command from {self.client_addr}.")
         command = None
         try:
-            command = self.buffer.recv_until(b'\xE7').split(b'\x7E')[-1]
-        except (socket.error, OSError) as e:
+            command = self.buffer.recv_until(b'\xE7')
+        except (socket.error, OSError, TimeoutError) as e:
             logging.error(f"Server: Error {e} when receiving command")
         return command
 

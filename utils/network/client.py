@@ -5,8 +5,6 @@ import struct
 import time
 from utils.command import *
 
-logging.basicConfig(level=logging.INFO)
-
 
 class Client:
     server_socket: None | socket.socket
@@ -54,7 +52,7 @@ class Client:
     def send_message(self, message: str) -> bool:
         logging.info(f"Client: Sending message to {self.server_addr}.")
         try:
-            self.server_socket.send(message.encode('utf-8'))
+            self.server_socket.send(message.encode('utf-8') + b'\x7E')
             logging.info(f"Client: Message {message} has been sent.")
             return True
         except socket.error as e:
@@ -64,7 +62,7 @@ class Client:
     def send_cmd(self, command: bytes) -> bool:
         logging.info(f"Client: Sending command to {self.server_addr}.")
         try:
-            self.server_socket.send(b'\x7E' + command + b'\xE7')
+            self.server_socket.send(command + b'\xE7')
             return True
         except socket.error as e:
             logging.error(f"Client: Error {e} when sending command")
