@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="images">
+        <file>images/logo.png</file>
+        <file>images/folder.png</file>
+        <file>images/save.png</file>
+        <file>images/search.png</file>
+        <file>images/add.png</file>
+        <file>images/edit.png</file>
+        <file>images/delete.png</file>
+    </qresource>
+    <qresource prefix="fonts">
+        <file>fonts/SourceHanSansCN-Regular.otf</file>
+        <file>fonts/SourceHanSansCN-Bold.otf</file>
+    </qresource>
+</RCC>

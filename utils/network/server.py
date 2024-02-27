@@ -1,10 +1,10 @@
 import os
 import sys
 import socket
-import logging
 import struct
 
 from utils.command import *
+from utils import constant
 
 
 class Buffer:
@@ -64,15 +64,15 @@ class Server:
         self.tcp_server.settimeout(None)
         self.client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.buffer = Buffer(self.client_socket)
-        logging.info(f"Server: Client at {self.client_addr} is connect.")
+        constant.LOGGER.info(f"Server: Client at {self.client_addr} is connect.")
         try:
             assert self.recv_cmd() == CMD_LINK
         except AssertionError:
-            logging.error("Server: Failed to establish a secure connection.")
+            constant.LOGGER.error("Server: Failed to establish a secure connection.")
             sys.exit(0)
 
     def recv_image(self, _fp) -> str | None:
-        logging.info(f"Server: Receiving image from {self.client_addr}.")
+        constant.LOGGER.info(f"Server: Receiving image from {self.client_addr}.")
         self.client_socket.settimeout(2)
         try:
             fileinfo_size = struct.calcsize('128sq')
@@ -95,38 +95,38 @@ class Server:
                     raise TimeoutError
                 file.write(data)
             file.close()
-            logging.info(f"Server: Successfully received image {fp}.")
+            constant.LOGGER.info(f"Server: Successfully received image {fp}.")
             self.client_socket.settimeout(None)
             return fp
 
         except (OSError, UnicodeDecodeError, struct.error) as e:
-            logging.error(f"Server: Error {e} when receiving image")
+            constant.LOGGER.error(f"Server: Error {e} when receiving image")
             # flush
             self.buffer.clear()
             self.client_socket.settimeout(None)
             return None
 
         except (socket.error, AssertionError, TimeoutError) as e:
-            logging.error(f"Server: Error {e} when receiving image")
+            constant.LOGGER.error(f"Server: Error {e} when receiving image")
             self.client_socket.settimeout(None)
             return None
 
     def recv_message(self):
-        logging.info(f"Server: Receiving message from {self.client_addr}.")
+        constant.LOGGER.info(f"Server: Receiving message from {self.client_addr}.")
         message = None
         try:
             message = self.buffer.recv_until(b'\x7E').decode('utf-8')
         except (socket.error, OSError, UnicodeDecodeError, TimeoutError) as e:
-            logging.error(f"Server: Error {e} when receiving message")
+            constant.LOGGER.error(f"Server: Error {e} when receiving message")
         return message
 
     def recv_cmd(self):
-        logging.info(f"Server: Receiving command from {self.client_addr}.")
+        constant.LOGGER.info(f"Server: Receiving command from {self.client_addr}.")
         command = None
         try:
             command = self.buffer.recv_until(b'\xE7')
         except (socket.error, OSError, TimeoutError) as e:
-            logging.error(f"Server: Error {e} when receiving command")
+            constant.LOGGER.error(f"Server: Error {e} when receiving command")
         return command
 
     def stop_service(self):
@@ -134,7 +134,7 @@ class Server:
             self.client_socket.close()
         if self.tcp_server:
             self.tcp_server.close()
-        logging.info("Server: Service is successfully closed.")
+        constant.LOGGER.info("Server: Service is successfully closed.")
 
     def reconnect(self, timeout: float | None = None):
         self.stop_service()

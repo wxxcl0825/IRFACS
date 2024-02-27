@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>960</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>IRFACS</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../assets/assets.qrc">
+    <normaloff>:/images/images/logo.png</normaloff>:/images/images/logo.png</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255,255,255)</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="styleSheet">
+       <string notr="true">background: rgb(242, 242, 242)</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>5</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="logo">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../assets/assets.qrc">:/images/images/logo.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="titleEN">
+             <property name="font">
+              <font>
+               <family>思源黑体 CN Bold</family>
+               <pointsize>15</pointsize>
+               <weight>9</weight>
+               <italic>false</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: 75 15pt &quot;思源黑体 CN Bold&quot;;</string>
+             </property>
+             <property name="text">
+              <string>IRFACS</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="titleEN_2">
+             <property name="font">
+              <font>
+               <family>思源黑体 CN Regular</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>false</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font:10pt &quot;思源黑体 CN Regular&quot;;</string>
+             </property>
+             <property name="text">
+              <string>红外人脸识别门禁系统</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>153</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="controlbtn">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+  padding: 5px 5px;
+  margin: 0px 5px;
+  border-radius: 15px;
+  font: 16pt &quot;思源黑体 CN Regular&quot;;
+}
+
+QPushButton:disabled{
+  background-color: rgb(152, 192, 117);
+  color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+  background-color: rgb(228, 232, 236);
+}</string>
+         </property>
+         <property name="text">
+          <string>控制</string>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="managebtn">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+  padding: 5px 5px;
+  margin: 0px 5px;
+  border-radius: 15px;
+  font: 16pt &quot;思源黑体 CN Regular&quot;;
+}
+
+QPushButton:disabled{
+  background-color: rgb(152, 192, 117);
+  color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+  background-color: rgb(228, 232, 236);
+}</string>
+         </property>
+         <property name="text">
+          <string>管理</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="logsbtn">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+  padding: 5px 5px;
+  margin: 0px 5px;
+  border-radius: 15px;
+  font: 16pt &quot;思源黑体 CN Regular&quot;;
+}
+
+QPushButton:disabled{
+  background-color: rgb(152, 192, 117);
+  color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+  background-color: rgb(228, 232, 236);
+}</string>
+         </property>
+         <property name="text">
+          <string>日志</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="settingsbtn">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+  padding: 5px 5px;
+  margin: 0px 5px;
+  border-radius: 15px;
+  font: 16pt &quot;思源黑体 CN Regular&quot;;
+}
+
+QPushButton:disabled{
+  background-color: rgb(152, 192, 117);
+  color: rgb(255, 255, 255);
+}
+
+QPushButton:hover{
+  background-color: rgb(228, 232, 236);
+}</string>
+         </property>
+         <property name="text">
+          <string>设置</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>153</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="contentlayout"/>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../assets/assets.qrc"/>
+ </resources>
+ <connections/>
+</ui>

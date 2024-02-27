@@ -1,4 +1,5 @@
 import os
+import sys
 
 import numpy as np
 from tqdm import tqdm
@@ -7,7 +8,7 @@ from typing import Any, List, Dict
 
 import cv2
 from numpy import ndarray, dtype
-from utils.paths import *
+from utils import constant
 import face_recognition as fr
 import pickle
 
@@ -24,18 +25,16 @@ class Recognizer:
 
         except FileNotFoundError:
             logging.warning("MODEL: File not found.")
-            self.train()
 
         except pickle.PickleError:
             logging.warning("MODEL: File corrupted.")
             os.remove(self.model_path)
-            self.train()
 
     def train(self):
-        users = os.listdir(PATH_TEMPLATE_DIR)
+        users = os.listdir(constant.PATH_TEMPLATE_DIR)
         logging.info("MODEL: Training...")
-        for user in tqdm(users):
-            self.insert(uid=int(user.split('.')[0]), fp=os.path.join(PATH_TEMPLATE_DIR, user))
+        for user in tqdm(users, file=sys.stdout):
+            self.insert(uid=int(user.split('.')[0]), fp=os.path.join(constant.PATH_TEMPLATE_DIR, user))
         self.save()
 
     def save(self):

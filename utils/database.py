@@ -1,6 +1,6 @@
 import sqlite3
 from typing import List, Tuple
-from utils.paths import *
+from utils import constant
 
 
 class Database:
@@ -10,13 +10,14 @@ class Database:
     def __init__(self):
         self.conn = None
         self.cursor = None
+        self.connect()
 
     def connect(self):
-        self.conn = sqlite3.connect(PATH_DB)
+        self.conn = sqlite3.connect(constant.PATH_DB)
         self.cursor = self.conn.cursor()
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS user(
-            id INTEGER PRIMARY KEY,
+            id INTEGER KEY,
             name TEXT
         )
         ''')
@@ -33,9 +34,8 @@ class Database:
     def query_by_uid(self, uid: int) -> str:
         return self.cursor.execute(f"SELECT * FROM user WHERE id = {uid}").fetchall()[0][1]
 
-    def query_by_name(self, name: str) -> List[int]:
-        results = self.cursor.execute(f"SELECT * FROM user WHERE name = '{name}'").fetchall()
-        return [result[0] for result in results]
+    def query_by_name(self, name: str) -> List[Tuple]:
+        return  self.cursor.execute(f"SELECT * FROM user WHERE name Like '%{name}%'").fetchall()
 
     def clear(self):
         self.cursor.execute("DROP TABLE user")
