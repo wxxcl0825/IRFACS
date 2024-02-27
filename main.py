@@ -3,7 +3,6 @@ import sys
 
 from PyQt5.QtGui import QFontDatabase
 from PyQt5.QtWidgets import QApplication
-from memory_profiler import profile
 
 from view.MainWindow import MainWindow
 
@@ -37,7 +36,6 @@ def load_model(app, model: Recognizer):
     app.exec_()
     sys.stdout = _std_out
 
-@profile
 def main():
     app = QApplication(sys.argv)
     load_fonts()
