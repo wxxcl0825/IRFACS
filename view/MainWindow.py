@@ -99,7 +99,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def load_logs(self):
         self.logswidget = logswidget()
-        constant.LOGGER.handlers[0].logstext = self.logswidget.logstext
+        constant.LOGGER.handlers[0].logSignal.connect(lambda x: self.logswidget.logstext.append(x))
         self.contentlayout.addWidget(self.logswidget)
         self.logswidget.show()
 

@@ -3,7 +3,6 @@ import sys
 
 import numpy as np
 from tqdm import tqdm
-import logging
 from typing import Any, List, Dict
 
 import cv2
@@ -21,18 +20,18 @@ class Recognizer:
         self.model = {}
         try:
             self.model = pickle.load(open(self.model_path, 'rb'))
-            logging.info("MODEL: Successfully load.")
+            constant.LOGGER.info("MODEL: Successfully load.")
 
         except FileNotFoundError:
-            logging.warning("MODEL: File not found.")
+            constant.LOGGER.warning("MODEL: File not found.")
 
-        except pickle.PickleError:
-            logging.warning("MODEL: File corrupted.")
+        except (pickle.PickleError, EOFError):
+            constant.LOGGER.warning("MODEL: File corrupted.")
             os.remove(self.model_path)
 
     def train(self):
         users = os.listdir(constant.PATH_TEMPLATE_DIR)
-        logging.info("MODEL: Training...")
+        constant.LOGGER.info("MODEL: Training...")
         for user in tqdm(users, file=sys.stdout):
             self.insert(uid=int(user.split('.')[0]), fp=os.path.join(constant.PATH_TEMPLATE_DIR, user))
         self.save()
@@ -64,5 +63,5 @@ class Recognizer:
             return uids[pos]
 
         except AssertionError:
-            logging.error("MODEL: Invalid image. Abort.")
+            constant.LOGGER.error("MODEL: Invalid image. Abort.")
             return None

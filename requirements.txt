@@ -1,0 +1,5 @@
+PyQt5
+tqdm
+opencv-python
+numpy
+face_recognition

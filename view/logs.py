@@ -1,10 +1,9 @@
 import logging
 
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget, QTextBrowser
+from PyQt5.QtCore import pyqtSlot, QObject, pyqtSignal
+from PyQt5.QtWidgets import QWidget
 
 from ui.logs import Ui_logswidget
-
 from utils import constant
 
 
@@ -42,14 +41,15 @@ class logswidget(QWidget, Ui_logswidget):
         self.logstext.clear()
 
 
-class LoggingHandler(logging.Handler):
-    def __init__(self, logstext):
-        super().__init__()
-        self.logstext: None | QTextBrowser = logstext
+class LoggingHandler(logging.Handler, QObject):
+    logSignal = pyqtSignal(str)
+
+    def __init__(self):
+        logging.Handler.__init__(self)
+        QObject.__init__(self)
         self.setFormatter(logging.Formatter(
             fmt='pid: %(thread)d %(asctime)s.%(msecs)03d [%(levelname)s] [%(filename)s:%(lineno)d] %(''message)s',
             datefmt='%Y-%m-%d %H:%M:%S'))
 
     def emit(self, record):
-        if self.logstext:
-            self.logstext.append(self.format(record))
+        self.logSignal.emit(self.format(record))

@@ -1,4 +1,3 @@
-import logging
 import os
 import time
 
@@ -76,7 +75,6 @@ class controlwidget(QWidget, Ui_controlwidget):
                                           "margin: 5px 10px;\n"
                                           "font: 75 9pt \"思源黑体 CN Bold\";")
             self.connectbtn.setText("断开")
-            self.switchbtn.state = False
             self.switchbtn.update()
         elif state == STATE.pending:
             self.statuslabel.setStyleSheet("border-radius: 6px;\n"
@@ -181,8 +179,8 @@ class ThreadNetwork(QThread):
                         self.s.client_socket.settimeout(60)
                         assert self.s.recv_cmd() == CMD_FIN
                     except (AssertionError, TimeoutError):
-                        logging.error("PC(Server): Speaking timeout.")
-                        logging.info("PC(Server): Trying to reconnect.")
+                        constant.LOGGER.error("PC(Server): Speaking timeout.")
+                        constant.LOGGER.info("PC(Server): Trying to reconnect.")
                         self.reconnect(constant.MAX_RETRY)
                         continue
 
@@ -201,7 +199,7 @@ class ThreadNetwork(QThread):
 
     def init_client(self, server_addr):
         self.c.server_addr = server_addr
-        logging.info("PC(Client): Connecting to pi.")
+        constant.LOGGER.info("PC(Client): Connecting to pi.")
         self.c.connect_server()
 
     def init_server(self):
@@ -220,5 +218,5 @@ class ThreadNetwork(QThread):
             except (TimeoutError, AssertionError):
                 pass
         if self.c.stop or retry == max_retry:
-            logging.warning("PC(Client): pi is offline.")
+            constant.LOGGER.warning("PC(Client): pi is offline.")
             self.updateStatusSignal.emit(STATE.offline)
